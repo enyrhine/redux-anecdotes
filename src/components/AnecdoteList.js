@@ -3,8 +3,17 @@ import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { createNotification } from '../reducers/notificationReducer';
 
 const ListAnecdote = (props) => {
-    const anecdotes = props.store.getState().anecdotes
-
+    //const anecdotes = props.store.getState().anecdotes
+    //const filter = props.store.getState().filter
+    const anecdotes = 
+            props.store.getState().anecdotes
+            .filter(a => a.content.toLocaleLowerCase().includes(props.store.getState().filter.toLocaleLowerCase()))
+            .sort((x,y) => y.votes - x.votes)
+        
+    /*case 'ALL':
+      const anecdoteToShow = state.map(a => a.id === id ? a.content : '')
+      return anecdoteToShow
+*/
     const vote = (id) => {
         console.log('vote', id)
         props.store.dispatch(voteAnecdote(id))
