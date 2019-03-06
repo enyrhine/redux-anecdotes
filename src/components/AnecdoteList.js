@@ -10,11 +10,11 @@ const ListAnecdote = (props) => {
         console.log('vote', anecdote)
         props.voteAnecdote(anecdote)
         //const anecdoteObject = props.anecdotesMapped.find(anecdote => anecdote.id === id)
-        props.createNotification(`Votettu: ${anecdote.content}`)
+        props.createNotification(`Votettu: ${anecdote.content}`, 3)
 
-        setTimeout(() => {
+        /*setTimeout(() => {
             props.createNotification('')
-        }, 5000)
+        }, 5000)*/
     }
     return (
         <div>
