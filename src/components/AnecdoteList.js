@@ -33,6 +33,7 @@ const ListAnecdote = (props) => {
 }
 
 const anecdotesToShow = ({ anecdotes, filter }) => {
+    console.log('mitä listalla on: ', anecdotes)
     return (anecdotes
         .filter(a => a.content.toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
         .sort((x, y) => y.votes - x.votes)

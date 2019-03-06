@@ -2,18 +2,28 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 import { createNotification } from '../reducers/notificationReducer';
+import anecdoteService from '../services/anecdotes'
 
 const NewAnecdote = (props) => {
 
-    const addAnecdote = (event) => {
+    const addAnecdote = async (event) => {
         event.preventDefault()
-        props.createAnecdote(event.target.anecdote.value)
-        props.createNotification(`Lisätty uusi anekdootti: ${event.target.anecdote.value}`)
+        const element = event.target
+        //console.log('mitä event pitää sisällään: ', event)
+        const content = element.anecdote.value
+        await anecdoteService.createNew(content)
+        .then(props.createAnecdote(content))
+
+        
+/* const newAnecdote = await anecdoteService.createNew(content)
+        .then(props.createAnecdote(newAnecdote.content))*/
+
+        props.createNotification(`Lisätty uusi anekdootti`)
 
         setTimeout(() => {
             props.createNotification('')
         }, 5000)
-        event.target.anecdote.value = ''
+        element.anecdote.value = ''
     }
 
     return (

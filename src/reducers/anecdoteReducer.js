@@ -1,11 +1,11 @@
-const anecdotesAtStart = [
+/*const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
   'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
   'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-]
+]*/
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
@@ -17,10 +17,10 @@ const asObject = (anecdote) => {
   }
 }
 
-export const createAnecdote = (content) => {
+export const createAnecdote = (data) => {
   return {
     type: 'NEW_ANE',
-    data: { content: content }
+    data,
   }
 }
 
@@ -38,7 +38,7 @@ export const initializeAnecdotes = (anecdotes) => {
   }
 }
 
-const initialState = anecdotesAtStart.map(asObject)
+//const initialState = anecdotesAtStart.map(asObject)
 
 const AnecdoteReducer = (state = [], action) => {
   console.log('state now: ', state)
@@ -55,7 +55,7 @@ const AnecdoteReducer = (state = [], action) => {
       console.log('votes: ', changeAnecdote.votes)
       return state.map(anec => anec.id !== id ? anec : changeAnecdote).sort((x, y) => y.votes - x.votes)
     case 'NEW_ANE':
-      return state.concat(asObject(action.data.content)).sort((x, y) => y.votes - x.votes)
+      return state.concat(asObject(action.data)).sort((x, y) => y.votes - x.votes)
     case 'INIT_ANECDOTES':
       return action.data  
     default:
