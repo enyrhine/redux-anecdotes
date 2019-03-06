@@ -5,7 +5,8 @@ import { createNotification } from '../reducers/notificationReducer';
 
 const ListAnecdote = (props) => {
 
-    const vote = (id) => {
+    const vote = async (id) => {
+       
         console.log('vote', id)
         props.voteAnecdote(id)
         const anecdote = props.anecdotesMapped.find(anecdote => anecdote.id === id)

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 import { createNotification } from '../reducers/notificationReducer';
-import anecdoteService from '../services/anecdotes'
+//import anecdoteService from '../services/anecdotes'
 
 const NewAnecdote = (props) => {
 
@@ -28,8 +28,6 @@ const NewAnecdote = (props) => {
         setTimeout(() => {
             props.createNotification('')
         }, 5000)
-        
-
     }
 
     return (

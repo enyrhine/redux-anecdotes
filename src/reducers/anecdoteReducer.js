@@ -7,6 +7,7 @@
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]*/
 import anecdoteService from '../services/anecdotes'
+//import anecdotes from '../services/anecdotes';
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
@@ -34,12 +35,25 @@ export const createAnecdote = content => {
   }
 }
 
-export const voteAnecdote = (id) => {
+/*export const voteAnecdote = (id) => {
   return {
     type: 'vote',
     data: { id }
   }
+}*/
+export const voteAnecdote = (id) => {
+  return async dispatch => {
+    console.log('Miten saan kaikki anekdootit tänne?', id)
+    const anekdootit = anecdoteService.getAll().find(a => a.id === id)
+    const voted = await anecdoteService.voteNew(anekdootit)
+
+    dispatch({
+      type: 'vote',
+      data: voted
+    })
+  }
 }
+
 
 /*export const initializeAnecdotes = (anecdotes) => {
   return {
@@ -65,13 +79,14 @@ const AnecdoteReducer = (state = [], action) => {
   //console.log('action data', action.type)
   switch (action.type) {
     case 'vote':
+    console.log('Mitä tänne tulee: ', action.data)
       const id = action.data.id
       const anecdoteToChange = state.find(a => a.id === id)
       const changeAnecdote = {
         ...anecdoteToChange,
         votes: anecdoteToChange.votes + 1
       }
-      console.log('votes: ', changeAnecdote.votes)
+      console.log('Pääseekö tänne asti? votes: ', changeAnecdote.votes)
       return state.map(anec => anec.id !== id ? anec : changeAnecdote).sort((x, y) => y.votes - x.votes)
     case 'NEW_ANE':
       return state.concat(asObject(action.data.content)).sort((x, y) => y.votes - x.votes)
