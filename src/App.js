@@ -22,6 +22,7 @@ const App = (props) => {
       <Notification />
       <ListAnecdote />
       <NewAnecdote />
+      
     </div>
   )
 }

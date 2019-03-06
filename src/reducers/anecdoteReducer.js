@@ -9,15 +9,15 @@
 import anecdoteService from '../services/anecdotes'
 //import anecdotes from '../services/anecdotes';
 
-const getId = () => (100000 * Math.random()).toFixed(0)
+//const getId = () => (100000 * Math.random()).toFixed(0)
 
-const asObject = (anecdote) => {
+/*const asObject = (anecdote) => {
   return {
     content: anecdote,
-    id: getId(),
-    votes: 0
+    votes: 0,
+    id: getId()
   }
-}
+}*/
 
 /*export const createAnecdote = (data) => {
   return {
@@ -41,11 +41,10 @@ export const createAnecdote = content => {
     data: { id }
   }
 }*/
-export const voteAnecdote = (id) => {
+export const voteAnecdote = (data) => {
   return async dispatch => {
-    console.log('Miten saan kaikki anekdootit tänne?', id)
-    const anekdootit = anecdoteService.getAll().find(a => a.id === id)
-    const voted = await anecdoteService.voteNew(anekdootit)
+    //console.log('Miten saan kaikki anekdootit tänne?', data)
+    const voted = await anecdoteService.voteNew(data)
 
     dispatch({
       type: 'vote',
@@ -89,7 +88,10 @@ const AnecdoteReducer = (state = [], action) => {
       console.log('Pääseekö tänne asti? votes: ', changeAnecdote.votes)
       return state.map(anec => anec.id !== id ? anec : changeAnecdote).sort((x, y) => y.votes - x.votes)
     case 'NEW_ANE':
-      return state.concat(asObject(action.data.content)).sort((x, y) => y.votes - x.votes)
+    return state.concat(action.data)
+      //return state.concat(asObject(action.data.content))
+      //return action.data
+      //.sort((x, y) => y.votes - x.votes)
     case 'INIT_ANECDOTES':
       return action.data  
     default:

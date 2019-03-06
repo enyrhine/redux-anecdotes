@@ -5,11 +5,11 @@ import { createNotification } from '../reducers/notificationReducer';
 
 const ListAnecdote = (props) => {
 
-    const vote = async (id) => {
+    const vote = async (anecdote) => {
        
-        console.log('vote', id)
-        props.voteAnecdote(id)
-        const anecdote = props.anecdotesMapped.find(anecdote => anecdote.id === id)
+        console.log('vote', anecdote)
+        props.voteAnecdote(anecdote)
+        //const anecdoteObject = props.anecdotesMapped.find(anecdote => anecdote.id === id)
         props.createNotification(`Votettu: ${anecdote.content}`)
 
         setTimeout(() => {
@@ -25,7 +25,7 @@ const ListAnecdote = (props) => {
                     </div>
                     <div>
                         has {anecdote.votes}
-                        <button onClick={() => vote(anecdote.id)}>vote</button>
+                        <button onClick={() => vote(anecdote)}>vote</button>
                     </div>
                 </div>
             )}
