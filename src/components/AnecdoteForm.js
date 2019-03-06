@@ -9,12 +9,17 @@ const NewAnecdote = (props) => {
     const addAnecdote = async (event) => {
         event.preventDefault()
         const element = event.target
+        const content = element.anecdote.value
+
+        /*event.preventDefault()
+        const element = event.target
         //console.log('mitä event pitää sisällään: ', event)
         const content = element.anecdote.value
         await anecdoteService.createNew(content)
         .then(props.createAnecdote(content))
-
-        
+*/
+        element.anecdote.value = ''
+        props.createAnecdote(content)
 /* const newAnecdote = await anecdoteService.createNew(content)
         .then(props.createAnecdote(newAnecdote.content))*/
 
@@ -23,7 +28,8 @@ const NewAnecdote = (props) => {
         setTimeout(() => {
             props.createNotification('')
         }, 5000)
-        element.anecdote.value = ''
+        
+
     }
 
     return (
